@@ -6,6 +6,15 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Simulation of a single turn in a 'Risk' game
+ * 
+ * A single turn may consist of one ore multiple 'attacks', which include roll dices of both players leading
+ * to decreasing the number of stones of one or both players.
+ * 
+ * @author oliverherrmann
+ *
+ */
 final class RiskGame {
 
 	private final Player p1;
@@ -14,15 +23,30 @@ final class RiskGame {
 	private final Scanner sc = new Scanner(System.in);
 	private final Dice dice = new Dice(Calendar.getInstance().getTimeInMillis());   
 	
+	/**
+	 * Creates a new risk game turn
+	 * @param s1 the initial amount of stones of player 1
+	 * @param s2 the initial amount of stones of player 2
+	 */
 	RiskGame(int s1, int s2) {
 		p1 = new Player("Player 1", s1);
 		p2 = new Player("Player 2", s2);
 	}
 	
+	/**
+	 * Starts the turn.
+	 * 
+	 * The user may choose with how many stones to attack and, if possible, whether to perform another attack move.
+	 * The turn finishes if the user chooses to abort the attack or one player runs out of stones. 
+	 */
 	void start() {
 		run(1);
 	}
 	
+	/**
+	 * Performs one attack
+	 * @param round the current number of attack (in q sequence of attacks)
+	 */
 	private void run(int round) {
 		if (p1.getStones() <= 0) {
 			System.out.println(p2.getName() + " won");
@@ -49,6 +73,10 @@ final class RiskGame {
 		}
 	}
 	
+	/**
+	 * Decreases one or both players stones based on the result of some dice rolls
+	 * @param a the numbr of stones to attack with (e. g. the number of dices the attacker uses)
+	 */
 	private void attack(int a) {
 		int[] dices_1 = dice.rollDices(a);
 		int[] dices_2 = dice.rollDices(Math.min(a, p2.getStones()));		

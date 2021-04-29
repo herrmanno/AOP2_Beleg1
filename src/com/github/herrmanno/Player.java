@@ -1,5 +1,11 @@
 package com.github.herrmanno;
 
+/**
+ * A player in the 'Risk' game
+ * 
+ * @author oliverherrmann
+ *
+ */
 final class Player {
 	
 	private static final int LINE_WIDTH = 40;
@@ -7,6 +13,14 @@ final class Player {
 	private final String name;
 	private int stones;
 
+	/**
+	 * Creates a new player
+	 * @param name the player's name
+	 * @param stones the player's initial number of stones
+	 * 
+	 * @throws if name if null or empty
+	 * @throws if stone count is zero or negative
+	 */
 	Player(String name, int stones) {
 		if (null == name || name.isEmpty()) {
 			throw new IllegalArgumentException("Name must not be null or empty");
@@ -20,10 +34,16 @@ final class Player {
 		this.stones = stones;
 	}
 	
+	/**
+	 * @return the player's name
+	 */
 	String getName() {
 		return name;
 	}
 	
+	/**
+	 * @return the player's current amount of stones
+	 */
 	int getStones() {
 		return stones;
 	}
@@ -52,6 +72,9 @@ final class Player {
 	}
 
 
+	/**
+	 * Decreases the player's amount of stones by one
+	 */
 	void decreaseStones() {
 		this.stones--;
 		
